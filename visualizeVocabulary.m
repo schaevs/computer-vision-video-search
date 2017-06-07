@@ -7,7 +7,7 @@
 %pick top 25 patches for each cluster by distance from center of cluster
 %choose two representative clusters.
 
-samplesPer = 8
+samplesPer = 11
 k =  1500
 prefix = '/Volumes/lil kleine/174PS3/sift/friends_000000'
 suffix = '.jpeg.mat'
@@ -48,6 +48,8 @@ suffixS = '.jpeg.mat';
 for i = 1:300
     inds = find(membership == i);
     i
+    %dist22 = dist2()
+    
     for j = 1:numel(inds)
         if j < 26
             nIm = descriptorSamplesImgIn(inds(j),1);
