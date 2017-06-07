@@ -7,7 +7,7 @@
 %pick top 25 patches for each cluster by distance from center of cluster
 %choose two representative clusters.
 
-samplesPer = 8
+samplesPer = 4
 k =  1500
 prefix = '/Volumes/lil kleine/174PS3/sift/friends_000000'
 suffix = '.jpeg.mat'
@@ -40,12 +40,8 @@ descriptorSamples = descriptorSamples(2:end,:);
 descriptorSamplesImgIn = descriptorSamplesImgIn(2:end,:);
 
 [membership,means,~] = kmeansML(k,descriptorSamples');
-extF = '/Volumes/lil kleine/174PS3/frames/';
-extS = '/Volumes/lil kleine/174PS3/sift/';
-prefix = 'friends_000000';
-suffixF = '.jpeg';
-suffixS = '.jpeg.mat';
-for i = 1:300
+
+for i = 1:100
     inds = find(membership == i);
     i
     for j = 1:numel(inds)
@@ -53,6 +49,11 @@ for i = 1:300
             nIm = descriptorSamplesImgIn(inds(j),1);
             nD = descriptorSamplesImgIn(inds(j),2);
             
+            extF = '/Volumes/lil kleine/174PS3/frames/'
+            extS = '/Volumes/lil kleine/174PS3/sift/'
+            prefix = 'friends_000000'
+            suffixF = '.jpeg'
+            suffixS = '.jpeg.mat'
             mid = int2str(nIm);
             if nIm<1000
                 mid = ['0' mid];
@@ -68,12 +69,11 @@ for i = 1:300
             
             
             subplot(5,5,j);
-            [patch] = getPatchFromSIFTParameters(positions(nD,:), scales(nD,:), orients(nD,:), rgb2gray(im));
+            [patch] = getPatchFromSIFTParameters(positions(nD,:), scales(nD,:), orients(nD,:), rgb2gray(im);
             imshow(patch);
         end
     end
-    print(gcf, '-djpeg', ['plot' int2str(i)])
-
-    %saveas(['plot' int2str(i) '.jpg'])
+    
+    savefig(['plot' int2str(i) '.jpg'])
 
 end
