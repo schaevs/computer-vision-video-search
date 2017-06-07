@@ -31,7 +31,7 @@ for i = 60:6671
         i
         randvals = randi([1 xmax],samplesPer,1);
         descriptorSamplesImgIn = [descriptorSamplesImgIn; [i*ones(samplesPer,1) randvals]];
-        descriptorSamples = [descriptorSamples; descriptors(randvals,:),];
+        descriptorSamples = [descriptorSamples; descriptors(randvals,:)];
     end
 end
 
@@ -48,10 +48,10 @@ suffixS = '.jpeg.mat';
 for i = 1:300
     inds = find(membership == i);
     i
-    %dist22 = dist2(transpose(means(:,i)),descriptorSamples(i,:));
+    dist22 = dist2(means(:,i)
     
     for j = 1:numel(inds) %get all corresponding
-        if j < 26
+        %if j < 26
             nIm = descriptorSamplesImgIn(inds(j),1);
             nD = descriptorSamplesImgIn(inds(j),2);
             
@@ -63,15 +63,25 @@ for i = 1:300
                 mid = ['0' mid];
             end
             
+            
             im = imread([extF prefix mid suffixF]);
             load([extS prefix mid suffixS]);
+            
+            
             
             subplot(5,5,j);
             [patch] = getPatchFromSIFTParameters(positions(nD,:), scales(nD,:), orients(nD,:), rgb2gray(im));
             imshow(patch);
-        end
+    end
+    for j = 1:25
+        
+        
     end
     
+    
+    end
     print(gcf, '-djpeg', ['plot' int2str(i)])
+
+    %saveas(['plot' int2str(i) '.jpg'])
 
 end
