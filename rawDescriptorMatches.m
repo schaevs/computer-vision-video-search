@@ -1,11 +1,14 @@
 load('twoFrameData.mat');
 
 ind = selectRegion(im1, positions1);
+print(gcf, '-djpeg', ['rawDImSelected']);
+clf
+
 descriptors1selected = descriptors1(ind,:);
 d2 = dist2(descriptors1selected, descriptors2);
 
 d2min = min(d2);
-ind2 = find(d2min < 0.2);
+ind2 = find(d2min < 0.15);
 
 posMatched2 = positions2(ind2,:);
 scalesMatched2 = scales2(ind2,:);
@@ -13,3 +16,4 @@ orientsMatched2 = orients2(ind2,:);
 
 imshow(im2);
 displaySIFTPatches(posMatched2, scalesMatched2, orientsMatched2, im2)
+print(gcf, '-djpeg', ['rawDImWPatches']);

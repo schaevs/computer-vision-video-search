@@ -1,10 +1,10 @@
 
 samplesPer = 11
 k =  1500
-%prefix = '/Volumes/lil kleine/174PS3/sift/friends_000000'
-%suffix = '.jpeg.mat'
 descriptorSamples = zeros(1,128);
 descriptorSamplesImgIn = zeros(1,2);
+
+%for each image, randomly sample @samplesPer descriptors
 for i = 60:6671
    
     [descriptors, orients, positions, scales] = getSIFT(i);
@@ -24,6 +24,9 @@ descriptorSamplesImgIn = descriptorSamplesImgIn(2:end,:);
 
 [membership,means,~] = kmeansML(k,descriptorSamples');
 
+kMeans = means;
+save(kMeans);
+save('kMeans.mat','kMeans');
 for i = 1:300
     inds = find(membership == i);
     i
