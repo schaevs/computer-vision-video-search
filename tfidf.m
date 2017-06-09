@@ -13,13 +13,13 @@ end
 %sums = sum(histograms);
 try
     load('tfidfM.mat');
-catch
+catch    
     N = 6671-60+1;
     tfidfM = zeros(size(histograms));
     for d = 60:6671
         d
         nd = sum(histograms(d,:)); %num words in document d
-        for i = 1:1500
+        for i = 1:1
             nid = histograms(d,i); %number of occurences of word i in document d
             ni = numel(find(histograms(:,i)>0)); %number of documents containing word i
             tfidfM(d,i) = (nid/nd)*log(N/ni);
@@ -27,7 +27,23 @@ catch
     end
 end
 
-for j = [ 6000 ]
+
+%%find and delete stop words from tfidfM
+freq = zeros(1500,1);
+for i = 1:1500
+    freq(i,:) = numel(find(histograms(:,i)>0));
+end
+topFreq = sort(freq,'descend');
+
+for i = 1:500 %delete 500 most frequent words
+    find(freq == topFreq(i));
+    tfidfM(:, find(freq == topFreq(i))) = [] ;
+    freq(find(freq == topFreq(i)),:) = [] ;
+end
+
+
+%%query region
+for j = [ 410 ]
     [descriptorsQ, orientsQ, positionsQ, scalesQ] = getSIFT(j);
     indQ = selectRegion(getIm(j), positionsQ);
     print(gcf, '-djpeg', ['tfidfregionQueryQim' int2str(j)]);
