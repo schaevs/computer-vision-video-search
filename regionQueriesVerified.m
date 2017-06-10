@@ -14,7 +14,7 @@ end
 
 
 
-for j = [ 6000   ]
+for j = [ 6000 2000 3000  ]
     [descriptorsQ, orientsQ, positionsQ, scalesQ] = getSIFT(j);
     indQ = selectRegion(getIm(j), positionsQ);
     print(gcf, '-djpeg', ['regionQueryQim' int2str(j)]);
@@ -44,10 +44,15 @@ for j = [ 6000   ]
     
     subplot(3,2,1)
     imshow(getIm(j));
+    
+    topNums = zeros(5,1);
     for i = 1:5
-        closeImNum = find(comparisons == closestNSP(i));
-        subplot(3,2,i+1);
-        imshow(getIm(closeImNum));
+        topNums(i,:) = find(comparisons == closestNSP(i));
+    end
+    verifiedResults = spatialVerification(j, topNums)
+    for i = 1:5
+        subplot(3,2,i)
+        imshow(getIm(verifiedResults(i)));
     end
     
     print(gcf, '-djpeg', ['regionQuery' int2str(j)]);

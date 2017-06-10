@@ -1,0 +1,33 @@
+% getSIFT(frameNum) gives us descriptors, orients, positions, and scales 
+% given a frame number
+%
+%
+% getHistogram(descriptors,kMeans) returns a kx1 matrix represneting a
+% histogram of words contained in descriptors
+%
+%
+% regionQueries is a script which prompts the user to select a region on a
+% hard-coded set of images, and finds the images which contain descriptors similar
+% to those contained in the selected region
+%
+%
+% fullFrameQueries is a script which finds finds the most-similar 5 images 
+% for each of the set of hard-coded images finding the images which contain 
+% descriptors similar to those contained in each query image
+%
+%
+% visualizeVocabulary builds a visual vocabulary and saves it it
+% kMeans.mat. It then goes on to display 
+%
+%
+% getIm() returns and image matrix given a frameNum
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%

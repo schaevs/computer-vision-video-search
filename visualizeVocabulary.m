@@ -25,7 +25,7 @@ descriptorSamplesImgIn = descriptorSamplesImgIn(2:end,:);
 [membership,means,~] = kmeansML(k,descriptorSamples');
 
 kMeans = means;
-save(kMeans);
+%save(kMeans);
 save('kMeans.mat','kMeans');
 for i = 1:300
     inds = find(membership == i);
